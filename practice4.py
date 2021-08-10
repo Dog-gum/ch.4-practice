@@ -16,24 +16,60 @@ for i in range(N):
   board.append(li)
 
 count = 0
+turn = 0
+
 while True:
-  if to == 0 or 2:
+
+  if to == 0:
     nx = x + dx[to]
     if board[nx][y] == 1:
-      continue
+      turn += 1
+      to = 3
+      if turn == 4:
+        break
     else:
       x = nx
       count += 1
       board[x - dx[to]][y] = 1
-  elif to == 1 or 3:
+      turn = 0
+
+  elif to == 2:
+    nx = x + dx[to]
+    if board[nx][y] == 1:
+      turn += 1
+      to = 1
+      if turn == 4:
+        break
+    else:
+      x = nx
+      count += 1
+      board[x - dx[to]][y] = 1
+      turn = 0
+
+  elif to == 1:
     ny = y + dy[to]
     if board[x][ny] == 1:
-      continue
+      turn += 1
+      to = 0
+      if turn == 4:
+        break
     else:
       y = ny
       count += 1
       board[x][y - dy[to]] = 1
-  elif board[x-1][y-1]==1 and board[x+1][y-1]==1 and board[x-1][y+1]==1 and board[x+1][y+1]==1:
-    break
+      turn = 0
 
+  elif to == 3:
+    ny = y + dy[to]
+    if board[x][ny] == 1:
+      turn += 1
+      to = 0
+      if turn == 2:
+        break
+    else:
+      y = ny
+      count += 1
+      board[x][y - dy[to]] = 1
+      turn = 0
+  
 print(count)
